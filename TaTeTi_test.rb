@@ -54,7 +54,18 @@ class TaTeTiTest < Test::Unit::TestCase
     end
   end
 
-  def test06
+  def test06CheckTurnoX
+    game = Game.new(3)
+    begin
+      game.PlayO(1, 2)
+      assert(false,"Debio fallar por turno de X")
+    rescue Exception => ex
+      assert_equal("Es el turno de X", ex.message)
+      assert_true(game.NextIsX?)
+    end
+  end
+
+  def test07CheckTurnoO
     game = Game.new(3)
     game.PlayX(1,1)
     begin
@@ -66,8 +77,7 @@ class TaTeTiTest < Test::Unit::TestCase
     end
   end
 
-=begin
-  def test07
+  def test08
     game = Game.new(3)
     game.PlayX(0,0)
     game.PlayO(1,1)
@@ -86,5 +96,5 @@ class TaTeTiTest < Test::Unit::TestCase
       assert_true(game.IsDraw?)
     end
   end
-=end
+
 end

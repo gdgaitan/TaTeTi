@@ -23,6 +23,10 @@ class Tablero
         @board.all? {|row| row.all? {|cell| cell.IsFree?}}
     end
 
+    def IsFull?
+        @board.none? {|row| row.none? {|cell| cell.IsFree?}}
+    end
+
     def CheckLimits (fila, columna)
         if fila >= @board.size || columna >= @board.size
             raise "Posicion fuera de rango"

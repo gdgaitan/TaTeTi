@@ -1,5 +1,7 @@
 require_relative "turno_x"
 require_relative "turno_o"
+require_relative "turno"
+
 
 class Game
 
@@ -21,13 +23,15 @@ class Game
   end
 
   def PlayX(fila, columna)
-    @tablero.PlayX(fila, columna)
-    @turno = @turno.Next
+    @turno.PlayX(@tablero, fila, columna)
+    @turno = Turno.GetNext(@tablero,@turno)
+    #@turno = @turno.Next
   end
 
   def PlayO(fila, columna)
-    @tablero.PlayO(fila, columna)
-    @turno = @turno.Next
+    @turno.PlayO(@tablero, fila, columna)
+    @turno = Turno.GetNext(@tablero,@turno)
+    #@turno = @turno.Next
   end
 
 end
