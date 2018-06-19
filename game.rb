@@ -1,7 +1,7 @@
 require_relative "turno_x"
 require_relative "turno_o"
+require_relative "turno_game_over"
 require_relative "turno"
-
 
 class Game
 
@@ -32,6 +32,18 @@ class Game
     @turno.PlayO(@tablero, fila, columna)
     @turno = Turno.GetNext(@tablero,@turno)
     #@turno = @turno.Next
+  end
+
+  def IsDraw?
+    @tablero.IsFull? && !XIsWinner? && !OIsWinner?
+  end
+
+  def XIsWinner?
+    @tablero.XIsWinner?
+  end
+
+  def OIsWinner?
+    @tablero.OIsWinner?
   end
 
 end

@@ -1,6 +1,5 @@
 class CellO < Cell
   def Initialize
-    @symbol = "O"
   end
 
   def SetX
@@ -23,4 +22,7 @@ class CellO < Cell
     false
   end
 
+  def Player
+    'O'
+  end
 end

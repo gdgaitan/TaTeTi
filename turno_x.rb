@@ -13,10 +13,6 @@ class TurnoX < Turno
     false
   end
 
-  def Next
-    TurnoO.new
-  end
-
   def PlayX (tablero, fila, columna)
     tablero.PlayX(fila, columna)
   end
@@ -26,6 +22,6 @@ class TurnoX < Turno
   end
 
   def self.CanHandle? (tablero, turno)
-    !tablero.IsFull? && turno.NextIsO?
+    !tablero.IsFull? && !tablero.XIsWinner? && !tablero.OIsWinner? && turno.NextIsO?
   end
 end

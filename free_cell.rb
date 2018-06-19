@@ -2,7 +2,6 @@ require_relative "cell"
 class FreeCell < Cell
 
   def Initialize
-    @symbol = "-"
   end
 
   def SetX
@@ -24,5 +23,7 @@ class FreeCell < Cell
   def IsFree?
     true
   end
-
+  def Player
+    '-'
+  end
 end

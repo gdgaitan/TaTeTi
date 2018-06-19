@@ -1,4 +1,3 @@
-
 class Turno
 
   def initialize()
@@ -11,10 +10,6 @@ class Turno
 
   def NextIsO?
     raise NotImplementedError.new("#{self.class.name}#NextIsO is an abstract method.")
-  end
-
-  def Next
-    raise NotImplementedError.new("#{self.class.name}#Next is an abstract method.")
   end
 
   def PlayX (tablero, fila, columna)
@@ -30,8 +25,8 @@ class Turno
   end
 
   def self.GetNext (tablero, turno)
-    descendants=ObjectSpace.each_object(::Class).select {|klass| klass < self && klass.CanHandle?(tablero, turno)}
-    descendants[0].new
+    descendants = [TurnoX, TurnoO, TurnoGameOver] #ObjectSpace.each_object(::Class).select {|klass| klass < self}
+    descendants.find {|turn| turn.CanHandle?(tablero, turno)}.new
   end
 
 

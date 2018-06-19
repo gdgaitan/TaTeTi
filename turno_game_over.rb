@@ -1,6 +1,6 @@
 require_relative 'turno.rb'
 
-class TurnoO < Turno
+class TurnoGameOver < Turno
 
   def initialize
   end
@@ -10,19 +10,19 @@ class TurnoO < Turno
   end
 
   def NextIsO?
-    true
+    false
   end
 
   def PlayX (tablero, fila, columna)
-    raise "Es el turno de O"
+    raise "El juego ha finalizado"
   end
 
   def PlayO (tablero, fila, columna)
-    tablero.PlayO(fila, columna)
+    raise "El juego ha finalizado"
   end
 
   def self.CanHandle? (tablero, turno)
-    !tablero.IsFull? && !tablero.XIsWinner? && !tablero.OIsWinner? && turno.NextIsX?
+    tablero.IsFull? || tablero.XIsWinner? || tablero.OIsWinner?
   end
 
 end

@@ -77,7 +77,7 @@ class TaTeTiTest < Test::Unit::TestCase
     end
   end
 
-  def test08
+  def test08CheckGameDraw
     game = Game.new(3)
     game.PlayX(0,0)
     game.PlayO(1,1)
@@ -88,12 +88,125 @@ class TaTeTiTest < Test::Unit::TestCase
     game.PlayX(1,2)
     game.PlayO(2,1)
     game.PlayX(2,2)
+
     begin
       game.PlayO(1, 2)
       assert(false,"Debio fallar por juego finalizado")
     rescue Exception => ex
       assert_equal("El juego ha finalizado", ex.message)
       assert_true(game.IsDraw?)
+    end
+  end
+
+  def test09CheckBigBoard
+    game = Game.new(600)
+    game.PlayX(560,0)
+    game.PlayO(1,590)
+
+    assert_true(game.NextIsX?)
+  end
+
+  def test10AnyRowWinnerXCannotPlayO
+    game = Game.new(3)
+    game.PlayX(2,0)
+    game.PlayO(1,0)
+    game.PlayX(2,1)
+    game.PlayO(1,1)
+    game.PlayX(2,2)
+
+    begin
+      game.PlayO(1, 2)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.XIsWinner?)
+    end
+  end
+
+  def test11AnyRowWinnerOCannotPlayX
+    game = Game.new(3)
+    game.PlayX(0,0)
+    game.PlayO(1,0)
+    game.PlayX(2,1)
+    game.PlayO(1,1)
+    game.PlayX(2,2)
+    game.PlayO(1,2)
+
+    begin
+      game.PlayX(1, 2)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.OIsWinner?)
+    end
+  end
+
+  def test12AnyColWinnerX
+    game = Game.new(3)
+    game.PlayX(0,0)
+    game.PlayO(1,1)
+    game.PlayX(1,0)
+    game.PlayO(1,2)
+    game.PlayX(2,0)
+
+    begin
+      game.PlayO(2, 2)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.XIsWinner?)
+    end
+  end
+
+  def test13AnyColWinnerO
+    game = Game.new(3)
+    game.PlayX(0,0)
+    game.PlayO(0,1)
+    game.PlayX(0,2)
+    game.PlayO(1,1)
+    game.PlayX(2,0)
+    game.PlayO(2,1)
+
+    begin
+      game.PlayX(1, 2)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.OIsWinner?)
+    end
+  end
+
+  def test14RightDiagWinsX
+    game = Game.new(3)
+    game.PlayX(0,0)
+    game.PlayO(0,1)
+    game.PlayX(1,1)
+    game.PlayO(1,2)
+    game.PlayX(2,2)
+
+    begin
+      game.PlayO(1, 0)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.XIsWinner?)
+    end
+  end
+
+  def test15LeftDiagWinsX
+    game = Game.new(3)
+    game.PlayX(0,2)
+    game.PlayO(0,1)
+    game.PlayX(1,1)
+    game.PlayO(1,2)
+    game.PlayX(2,0)
+
+    begin
+      game.PlayO(1, 0)
+      assert(false,"Debio fallar por juego finalizado")
+    rescue Exception => ex
+      assert_equal("El juego ha finalizado", ex.message)
+      assert_true(game.XIsWinner?)
     end
   end
 

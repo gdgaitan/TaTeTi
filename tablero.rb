@@ -24,7 +24,28 @@ class Tablero
     end
 
     def IsFull?
-        @board.none? {|row| row.none? {|cell| cell.IsFree?}}
+        @board.all? {|row| row.none? {|cell| cell.IsFree?}}
+    end
+
+    def XIsWinner?
+      self.RowWinner('X') || self.ColWinner('X') || self.DiagWinner('X')
+    end
+
+    def OIsWinner?
+      self.RowWinner('O') || self.ColWinner('O')
+    end
+
+    def RowWinner (player)
+      @board.any?{|row| row.all? {|cell| cell.Player == player}}
+    end
+
+    def ColWinner (player)
+      @board.transpose.any?{|row| row.all? {|cell| cell.Player == player}}
+    end
+
+    def DiagWinner (player)
+      (0..@board.size-1).collect {|i| @board[i][i]}.all? {|cell| cell.Player == player} ||
+          (0..@board.size-1).collect {|i| @board[i][@board.size-1-i]}.all? {|cell| cell.Player == player}
     end
 
     def CheckLimits (fila, columna)

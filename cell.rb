@@ -25,7 +25,7 @@ class Cell
   end
 
   def Player
-    @symbol
+    raise NotImplementedError.new("#{self.class.name}#IsFree is an abstract method.")
   end
 
 end
