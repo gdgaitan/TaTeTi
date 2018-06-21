@@ -44,8 +44,8 @@ class Tablero
     end
 
     def DiagWinner (player)
-      (0..@board.size-1).collect {|i| @board[i][i]}.all? {|cell| cell.Player == player} ||
-          (0..@board.size-1).collect {|i| @board[i][@board.size-1-i]}.all? {|cell| cell.Player == player}
+      (0...@board.size).collect {|i| @board[i][i]}.all? {|cell| cell.Player == player} ||
+        (0...@board.size).collect {|i| @board[i][@board.size-1-i]}.all? {|cell| cell.Player == player}
     end
 
     def CheckLimits (fila, columna)
@@ -53,5 +53,7 @@ class Tablero
             raise "Posicion fuera de rango"
         end
     end
+
+    protected :RowWinner, :ColWinner, :DiagWinner, :CheckLimits
 
 end

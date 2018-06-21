@@ -23,6 +23,7 @@ class FreeCell < Cell
   def IsFree?
     true
   end
+
   def Player
     '-'
   end
